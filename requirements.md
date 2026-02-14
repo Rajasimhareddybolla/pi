@@ -1,4 +1,4 @@
-# Requirements Document: Project Mirror - Digital Persona Schema System
+# Requirements Document: Project PI - Digital Persona Schema System
 
 ## 1. Feature Overview
 

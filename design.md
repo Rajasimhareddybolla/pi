@@ -1,8 +1,8 @@
-# Design Document: Project Mirror - Digital Persona Schema System
+# Design Document: Project PI - Digital Persona Schema System
 
 ## Overview
 
-Project Mirror is an Identity Preservation Engine that mathematically defines and preserves a content creator's unique style. The system operates as a three-phase pipeline: (1) Ingestion & Extraction, (2) Encoding, and (3) Application Layer. It analyzes video content across four DNA pillars to create a baseline persona, then provides analytics, generative, and adaptation tools to help creators maintain their authentic voice at scale.
+Project PI is an Identity Preservation Engine that mathematically defines and preserves a content creator's unique style. The system operates as a three-phase pipeline: (1) Ingestion & Extraction, (2) Encoding, and (3) Application Layer. It analyzes video content across four DNA pillars to create a baseline persona, then provides analytics, generative, and adaptation tools to help creators maintain their authentic voice at scale.
 
 The architecture is designed for modularity, allowing each DNA analyzer to operate independently while contributing to a unified persona schema. The system prioritizes accuracy in pattern detection and provides actionable insights rather than generic metrics.
 
@@ -1430,7 +1430,7 @@ The Drift Detector and Trend Analyzer work together to provide holistic content 
   "updated_at": "2024-01-15T10:30:00Z",
   "channel_handle": "creator_name",
   "videos_analyzed": 50,
-  "s3_bucket": "project-mirror-personas",
+  "s3_bucket": "project-PI-personas",
   "opensearch_index": "persona-vectors",
   
   "author_persona": {
@@ -1573,7 +1573,7 @@ The Drift Detector and Trend Analyzer work together to provide holistic content 
     "bedrock_model": "anthropic.claude-3-5-sonnet-20241022-v2:0",
     "transcribe_language": "hi-IN,en-IN",
     "opensearch_vector_id": "persona_abc123",
-    "s3_persona_path": "s3://project-mirror-personas/creator_name/persona.json",
+    "s3_persona_path": "s3://project-PI-personas/creator_name/persona.json",
     "last_drift_check": "2024-01-20T15:45:00Z"
   }
 }
@@ -1586,7 +1586,7 @@ The Drift Detector and Trend Analyzer work together to provide holistic content 
   "video_id": "abc123",
   "analyzed_at": "2024-01-20T15:45:00Z",
   "overall_drift_score": 0.23,
-  "s3_report_path": "s3://project-mirror-reports/creator_name/drift_abc123.json",
+  "s3_report_path": "s3://project-PI-reports/creator_name/drift_abc123.json",
   
   "visual_drift": {
     "drift_score": 0.31,
@@ -1687,10 +1687,10 @@ The Drift Detector and Trend Analyzer work together to provide holistic content 
 ```json
 {
   "video_id": "abc123",
-  "original_s3_path": "s3://project-mirror-videos/creator_name/abc123.mp4",
-  "audio_s3_path": "s3://project-mirror-processed/creator_name/abc123/audio.wav",
-  "frames_s3_prefix": "s3://project-mirror-processed/creator_name/abc123/frames/",
-  "transcript_s3_path": "s3://project-mirror-processed/creator_name/abc123/transcript.json",
+  "original_s3_path": "s3://project-PI-videos/creator_name/abc123.mp4",
+  "audio_s3_path": "s3://project-PI-processed/creator_name/abc123/audio.wav",
+  "frames_s3_prefix": "s3://project-PI-processed/creator_name/abc123/frames/",
+  "transcript_s3_path": "s3://project-PI-processed/creator_name/abc123/transcript.json",
   "transcribe_job_id": "transcribe-job-abc123",
   "metadata": {
     "duration_sec": 620,
@@ -1720,13 +1720,13 @@ The Drift Detector and Trend Analyzer work together to provide holistic content 
   "videos_failed": 1,
   "started_at": "2024-01-15T10:00:00Z",
   "estimated_completion": "2024-01-15T11:30:00Z",
-  "step_function_execution_arn": "arn:aws:states:us-east-1:123456789012:execution:project-mirror-pipeline:job_xyz789",
-  "s3_output_bucket": "project-mirror-processed",
+  "step_function_execution_arn": "arn:aws:states:us-east-1:123456789012:execution:project-PI-pipeline:job_xyz789",
+  "s3_output_bucket": "project-PI-processed",
   "errors": [
     {
       "video_id": "def456",
       "error": "Video is private or unavailable",
-      "cloudwatch_log_group": "/aws/lambda/project-mirror-ingestion",
+      "cloudwatch_log_group": "/aws/lambda/project-PI-ingestion",
       "cloudwatch_log_stream": "2024/01/15/[$LATEST]abc123"
     }
   ]
@@ -2806,7 +2806,7 @@ The Drift Detector and Trend Analyzer work together to provide holistic content 
 
 ### Overview
 
-Project Mirror processes biometric data (face embeddings from Vision Bot, voice fingerprints from Audio Bot) and personal content data, making it subject to India's Digital Personal Data Protection Act 2023 (DPDP Act). This section outlines compliance requirements and implementation strategies.
+Project PI processes biometric data (face embeddings from Vision Bot, voice fingerprints from Audio Bot) and personal content data, making it subject to India's Digital Personal Data Protection Act 2023 (DPDP Act). This section outlines compliance requirements and implementation strategies.
 
 ### Data Classification
 
@@ -3249,11 +3249,11 @@ The system requires both unit testing and property-based testing for comprehensi
 **Test Configuration**:
 - Minimum 100 iterations per property test (due to randomization)
 - Each property test must include a comment tag referencing the design property
-- Tag format: `# Feature: project-mirror, Property {number}: {property_text}`
+- Tag format: `# Feature: project-PI, Property {number}: {property_text}`
 
 **Example Property Test Structure**:
 ```python
-# Feature: project-mirror, Property 13: Persona Schema Round-Trip
+# Feature: project-PI, Property 13: Persona Schema Round-Trip
 @given(persona_schema=persona_generator())
 def test_persona_round_trip(persona_schema):
     # Serialize to JSON
